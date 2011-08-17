@@ -247,7 +247,7 @@ td { vertical-align: top; }
    ========================================================================== */
 
 #container {
-    width: 400px;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -255,6 +255,8 @@ header {
     h1 {
         font-family: 'Delius Swash Caps', cursive;
         font-size: 80px;
+        text-align: center;
+        margin-bottom: 20px;
     }
 }
 
@@ -264,10 +266,44 @@ header {
     #subheader {
         font-size: 30px;
         font-family: 'The Girl Next Door', cursive;
+        text-align: center;
+        
+        p {
+            margin-bottom: 20px;
+        }
+    }
+
+    #upload_prompt {
+        width: 96px;
+        margin: 0 auto;
+        a {
+            padding: 5px;
+            font-weight: normal;
+            text-decoration: none;
+            color: #444;
+            background: url('../img/add.png') 5px center no-repeat;
+            padding-left: 25px;
+            width: 70px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     #upload {
         display: none;
+        width: 400px;
+        margin: 0 auto;
+
+        #file_uploadUploader {
+            margin-left: 140px;
+        }
+
+        .uploadifyQueue {
+            max-height: 200px;
+            overflow: auto;
+        }
     }
 
     #thankyou {
