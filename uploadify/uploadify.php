@@ -24,23 +24,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 if (!empty($_FILES)) {
+
+    require_once('../dBconnect.php');
 	$tempFile = $_FILES['Filedata']['tmp_name'];
 	$targetPath = $_SERVER['DOCUMENT_ROOT'] . $_REQUEST['folder'] . '/';
-	$targetFile =  str_replace('//','/',$targetPath) . $_FILES['Filedata']['name'];
-	
-	// $fileTypes  = str_replace('*.','',$_REQUEST['fileext']);
-	// $fileTypes  = str_replace(';','|',$fileTypes);
-	// $typesArray = split('\|',$fileTypes);
-	// $fileParts  = pathinfo($_FILES['Filedata']['name']);
-	
-	// if (in_array($fileParts['extension'],$typesArray)) {
-		// Uncomment the following line if you want to make the directory if it doesn't exist
-		// mkdir(str_replace('//','/',$targetPath), 0755, true);
-		
-		move_uploaded_file($tempFile,$targetFile);
-		echo str_replace($_SERVER['DOCUMENT_ROOT'],'',$targetFile);
-	// } else {
-	// 	echo 'Invalid file type.';
-	// }
+    $title = stripslashes($_FILES['Filedata']['name']);
+    $filename = strtolower($title); // Make title lowercase
+    $filename = trim($filename);
+    $filename = str_replace( " ", "-", $filename); // Replace spaces with hypens
+
+    $filename = date('YmdHi').'-'.$filename;
+	$targetFile =  str_replace('//','/',$targetPath) . $filename;
+
+    //$imgid = insert_image($filename,$title);
+    move_uploaded_file($tempFile,$targetFile);
+
+    $exif_data = exif_read_data ( '../uploads/'.$filename);
+
+    $emodel = $exif_data['Model'];
+    $eexposuretime = $exif_data['ExposureTime'];
+    $efnumber = $exif_data['FNumber'];
+    $eiso = $exif_data['ISOSpeedRatings'];
+    $edate = $exif_data['DateTime'];
+
+    global $cid;
+    $sql = "SELECT file_order FROM `portugal_images` ORDER BY id DESC LIMIT 1";
+    $order = mysql_result(mysql_query($sql,$cid),0);
+    $order++;
+
+    if (mysql_query("INSERT INTO `portugal_images` (id,title,filename,file_order,model,exposuretime,fnumber,iso,date) VALUES ('','$title','$filename','$order++','$emodel','$eexposuretime','$efnumber','$eiso','$edate')",$cid)){
+        echo 'Successful insertion!';
+    } else {
+        echo 'Unsuccessful insertion :( !';
+    }
+
+    echo $filename.'+'.$title;
+
 }
 ?>

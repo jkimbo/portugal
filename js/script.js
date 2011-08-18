@@ -13,6 +13,9 @@ $(document).ready(function() {
         'buttonText': 'Upload Files',
         'fileExt'   : '*.jpg;*.gif;*.png',
         'fileDesc'  : 'Image Files',
+        'onComplete': function(event, ID, fileObj, response, data) {
+            console.log(response);
+        },
         'onAllComplete' : function(event, data) {
             $('#thankyou #info').text(data.filesUploaded + ' files uploaded successfully!');
             $('#upload').fadeOut(300, function() {
