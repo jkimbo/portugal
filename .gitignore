@@ -42,3 +42,7 @@ build/config/buildinfo.properties
 # Ignore dBconnect file
 dBconnect.php
 
+# Ignore timthumb folders cache and temp
+cache/
+temp/
+

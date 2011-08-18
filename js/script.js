@@ -34,6 +34,13 @@ $(document).ready(function() {
         });
         return false;
     });
+
+    $('#photos').isotope({
+        itemSelector: '.item',
+        masonry : {
+            columnWidth : 270
+        }
+    });
 });
 
 

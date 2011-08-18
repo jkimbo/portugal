@@ -65,7 +65,22 @@
             <input id="file_upload" name="file_upload" type="file" />
         </div>
 
-        <div id="photos"></div>
+        <div id="photos">
+            <?php require_once('dBconnect.php'); ?>
+            <?php
+                $sql = "SELECT * FROM `portugal_images` ORDER BY date ASC";
+                $rsc = mysql_query($sql);
+                while($row = mysql_fetch_array($rsc)) {
+            ?>
+            <?php
+                $max_width = 250;
+                $height = $row['height'] / ($row['width'] / $max_width);
+            ?>
+                <div class="item" style="height: <?php echo $height; ?>px">
+                <img src="timthumb.php?src=uploads/<?php echo $row['filename']; ?>&w=<?php echo $max_width; ?>" height= "<?php echo $height; ?>" width="<?php echo $max_width;?>"/>
+            </div>
+            <?php } ?>
+        </div>
     </div>
     <footer>
     </footer>
@@ -80,12 +95,15 @@
 
   <!-- scripts concatenated and minified via ant build script-->
   <script defer src="js/plugins.js"></script>
-  <script defer src="js/script.js"></script>
+
+  <!-- Isotope -->
+  <script type="text/javascript" src="js/mylibs/jquery.isotope.min.js"></script>
 
   <!-- Uploadify -->
   <script type="text/javascript" src="uploadify/swfobject.js"></script>
   <script type="text/javascript" src="uploadify/jquery.uploadify.v2.1.4.js"></script>
 
+  <script defer src="js/script.js"></script>
   <!-- end scripts-->
 
   <!-- Change UA-XXXXX-X to be your site's ID -->

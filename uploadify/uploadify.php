@@ -33,13 +33,12 @@ if (!empty($_FILES)) {
     $filename = trim($filename);
     $filename = str_replace( " ", "-", $filename); // Replace spaces with hypens
 
-    $filename = date('YmdHi').'-'.$filename;
 	$targetFile =  str_replace('//','/',$targetPath) . $filename;
 
-    //$imgid = insert_image($filename,$title);
     move_uploaded_file($tempFile,$targetFile);
 
     $exif_data = exif_read_data ( '../uploads/'.$filename);
+    list($width, $height, $type, $attr) = getimagesize('../uploads/'.$filename);
 
     $emodel = $exif_data['Model'];
     $eexposuretime = $exif_data['ExposureTime'];
@@ -52,7 +51,7 @@ if (!empty($_FILES)) {
     $order = mysql_result(mysql_query($sql,$cid),0);
     $order++;
 
-    if (mysql_query("INSERT INTO `portugal_images` (id,title,filename,file_order,model,exposuretime,fnumber,iso,date) VALUES ('','$title','$filename','$order++','$emodel','$eexposuretime','$efnumber','$eiso','$edate')",$cid)){
+    if (mysql_query("INSERT INTO `portugal_images` (id,title,filename,file_order,model,exposuretime,fnumber,iso,date,width,height) VALUES ('','$title','$filename','$order++','$emodel','$eexposuretime','$efnumber','$eiso','$edate','$width','$height')",$cid)){
         echo 'Successful insertion!';
     } else {
         echo 'Unsuccessful insertion :( !';
