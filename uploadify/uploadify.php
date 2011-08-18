@@ -33,10 +33,8 @@ if (!empty($_FILES)) {
     $filename = trim($filename);
     $filename = str_replace( " ", "-", $filename); // Replace spaces with hypens
 
-    $filename = date('YmdHi').'-'.$filename;
 	$targetFile =  str_replace('//','/',$targetPath) . $filename;
 
-    //$imgid = insert_image($filename,$title);
     move_uploaded_file($tempFile,$targetFile);
 
     $exif_data = exif_read_data ( '../uploads/'.$filename);
