@@ -19,14 +19,14 @@ define ('CACHE_USE', TRUE);					// use the cache files? (mostly for testing)
 define ('CACHE_MAX_AGE', 864000);			// time to cache in the browser
 define ('VERSION', '1.34');					// version number (to force a cache refresh)
 define ('DIRECTORY_CACHE', './cache');		// cache directory
-define ('MAX_WIDTH', 4000);					// maximum image width
-define ('MAX_HEIGHT', 4000);				// maximum image height
+define ('MAX_WIDTH', 6000);					// maximum image width
+define ('MAX_HEIGHT', 6000);				// maximum image height
 define ('DEFAULT_WIDTH', 100);				// maximum image width
 define ('DEFAULT_HEIGHT', 100);				// maximum image height
 define ('ALLOW_EXTERNAL', FALSE);			// allow external website (override security precaution - not advised!)
 define ('USE_PRESET_SIZES', FALSE);			// use preset sizes rather than allowing width and height to be passed in the request?
-define ('MEMORY_LIMIT', '30M');				// set PHP memory limit
-define ('MAX_FILE_SIZE', 1500000);			// file size limit to prevent possible DOS attacks (roughly 1.5 megabytes)
+define ('MEMORY_LIMIT', '150M');				// set PHP memory limit
+define ('MAX_FILE_SIZE', 5500000);			// file size limit to prevent possible DOS attacks (roughly 1.5 megabytes)
 define ('CURL_TIMEOUT', 10);				// timeout duration. Tweak as you require (lower = better)
 
 // external domains that are allowed to be displayed on your website
