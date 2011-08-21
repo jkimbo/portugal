@@ -14,7 +14,16 @@ $(document).ready(function() {
         'fileExt'   : '*.jpg;*.gif;*.png',
         'fileDesc'  : 'Image Files',
         'onComplete': function(event, ID, fileObj, response, data) {
-            console.log(response);
+            response = $.parseJSON(response);
+            var image = $('<div>').addClass('item').css('height', response.height)
+                .append(
+                    $('<img>').attr({
+                        src: 'timthumb.php?src=uploads/'+response.filename+'&w='+response['max_width'], 
+                        height: response.height, 
+                        width: response['max_width'] 
+                    })
+                );
+            $('#photos').prepend(image).masonry( 'reload' );
         },
         'onAllComplete' : function(event, data) {
             $('#thankyou #info').text(data.filesUploaded + ' files uploaded successfully!');
@@ -35,12 +44,15 @@ $(document).ready(function() {
         return false;
     });
 
-    $('#photos').isotope({
+    $('#photos').masonry({
         itemSelector: '.item',
-        masonry : {
-            columnWidth : 270
-        }
+        columnWidth : 270, 
+        isAnimated: true,
+        isFitWidth: true
     });
+
+    /* Fancy box */
+    $("a.gallery").fancybox();
 });
 
 

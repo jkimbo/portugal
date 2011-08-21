@@ -52,12 +52,16 @@ if (!empty($_FILES)) {
     $order++;
 
     if (mysql_query("INSERT INTO `portugal_images` (id,title,filename,file_order,model,exposuretime,fnumber,iso,date,width,height) VALUES ('','$title','$filename','$order++','$emodel','$eexposuretime','$efnumber','$eiso','$edate','$width','$height')",$cid)){
-        echo 'Successful insertion!';
+        //echo 'Successful insertion!';
     } else {
-        echo 'Unsuccessful insertion :( !';
+        //echo 'Unsuccessful insertion :( !';
     }
 
-    echo $filename.'+'.$title;
+    $max_width = 250;
+    $scale_height = $height / ($width / $max_width);
+
+    $json = array('max_width' => $max_width, 'filename' => $filename, 'height' => $scale_height);
+    echo json_encode($json);
 
 }
 ?>

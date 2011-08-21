@@ -36,6 +36,8 @@
   <link rel="stylesheet/less" type="text/css/" href="css/style.less">
   <script src="js/libs/less-1.1.4.min.js" type="text/javascript"></script>
 
+  <!-- Fancybox -->
+  <link href="css/jquery.fancybox-1.3.4.css" media="screen" rel="stylesheet" />
   <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
   <!-- All JavaScript at the bottom, except for this custom Modernizr build containing Respond.
@@ -68,7 +70,7 @@
         <div id="photos">
             <?php require_once('dBconnect.php'); ?>
             <?php
-                $sql = "SELECT * FROM `portugal_images` ORDER BY date ASC";
+                $sql = "SELECT * FROM `portugal_images` WHERE hidden=0 ORDER BY date ASC";
                 $rsc = mysql_query($sql);
                 while($row = mysql_fetch_array($rsc)) {
             ?>
@@ -76,8 +78,10 @@
                 $max_width = 250;
                 $height = $row['height'] / ($row['width'] / $max_width);
             ?>
-                <div class="item" style="height: <?php echo $height; ?>px">
-                <img src="timthumb.php?src=uploads/<?php echo $row['filename']; ?>&w=<?php echo $max_width; ?>" height= "<?php echo $height; ?>" width="<?php echo $max_width;?>"/>
+            <div class="item" style="height: <?php echo $height; ?>px">
+                <a class="gallery" rel="gallery1" href="uploads/<?php echo $row['filename']; ?>">
+                    <img src="timthumb.php?src=uploads/<?php echo $row['filename']; ?>&w=<?php echo $max_width; ?>" height= "<?php echo $height; ?>" width="<?php echo $max_width;?>"/>
+                </a>
             </div>
             <?php } ?>
         </div>
@@ -96,12 +100,15 @@
   <!-- scripts concatenated and minified via ant build script-->
   <script defer src="js/plugins.js"></script>
 
-  <!-- Isotope -->
-  <script type="text/javascript" src="js/mylibs/jquery.isotope.min.js"></script>
+  <!-- Masonry -->
+  <script type="text/javascript" src="js/mylibs/jquery.masonry.min.js"></script>
 
   <!-- Uploadify -->
   <script type="text/javascript" src="uploadify/swfobject.js"></script>
   <script type="text/javascript" src="uploadify/jquery.uploadify.v2.1.4.js"></script>
+
+  <!-- Fancybox -->
+  <script type="text/javascript" src="js/mylibs/jquery.fancybox-1.3.4.pack.js"></script>
 
   <script defer src="js/script.js"></script>
   <!-- end scripts-->
