@@ -16,12 +16,17 @@ $(document).ready(function() {
         'onComplete': function(event, ID, fileObj, response, data) {
             response = $.parseJSON(response);
             var image = $('<div>').addClass('item').css('height', response.height)
-                .append(
-                    $('<img>').attr({
-                        src: 'timthumb.php?src=uploads/'+response.filename+'&w='+response['max_width'], 
-                        height: response.height, 
-                        width: response['max_width'] 
-                    })
+                .append($('<a>').addClass('gallery').attr({
+                        rel: 'gallery1',
+                        href: 'uploads/'+response.filename
+                    }).fancybox()
+                    .append(
+                        $('<img>').attr({
+                            src: 'timthumb.php?src=uploads/'+response.filename+'&w='+response['max_width'], 
+                            height: response.height, 
+                            width: response['max_width'] 
+                        })
+                    )
                 );
             $('#photos').prepend(image).masonry( 'reload' );
         },
